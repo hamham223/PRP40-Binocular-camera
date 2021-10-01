@@ -1,0 +1,9 @@
+物件识别概论  https://zhuanlan.zhihu.com/p/36668416
+三种算法比较 https://blog.csdn.net/wzy_zju/article/details/80301655?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162130752116780269837421%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=162130752116780269837421&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-80301655.first_rank_v2_pc_rank_v29&utm_term=lbp%EF%BC%8Csift%2Chog%E6%AF%94%E8%BE%83&spm=1018.2226.3001.4187
+
+
+SIFT 算法  https://blog.csdn.net/zddblog/article/details/7521424
+https://kns.cnki.net/kns8/defaultresult/index  知网下载
+SIFT算法全解  https://www.cnblogs.com/tornadomeet/archive/2012/08/16/2643168.html （重要！！）
+
+C语言实现SIFT https://blog.csdn.net/v_JULY_v/article/details/6245939

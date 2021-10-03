@@ -161,6 +161,8 @@ final_matrix = np.zeros((1520, 3040, 3), np.uint8)
 
 final_matrix[0:1520, 0:1520] = img1_color
 final_matrix[0:1520, 1520:3040] = img2_color
+img1_color=cv2.imread('Left3.jpg')
+img2_color=cv2.imread('Right3.jpg')
 f_circle=open("circle_match.txt",'w')
 f_circle.write("Left             Right             Radius               m_color\n")
 
@@ -188,10 +190,11 @@ for i in draw_pt:
     m_color_1=calc_median_color(img1_color,i[1],i[0],i[4])
     m_color_2=calc_median_color(img2_color,i[3],i[2]-1520,i[4])
     f_circle.write(str(i[0])+"  "+str(i[1])+"       "+str(i[2])+"  "+str(i[3])+"      "+str(i[4])+"      "+str(m_color_1)+"      "+str(m_color_2)+"\n")
-    cv2.circle(draw_cirlces,(i[0],i[1]),i[4],m_color_1,-1,8)
-    cv2.circle(draw_cirlces,(i[2],i[3]),i[4],m_color_2,-1,8)
-    print(m_color_1,m_color_2)
+    if ((m_color_1[0]<=73)|(m_color_1[0]>=120)&(m_color_1[0]<=185))&(m_color_2[0]<=200):
+        cv2.circle(draw_cirlces,(i[0],i[1]),i[4],m_color_1,-1,8)
+        cv2.circle(draw_cirlces,(i[2],i[3]),i[4],m_color_2,-1,8)
+        print(m_color_1,m_color_2,i)
 f_circle.close()
 cv2.imwrite("FinalCircle_Match.jpg",final_matrix)
 cv2.imwrite("Draw_Circles.jpg",draw_cirlces)
-plt.imshow(final_matrix),plt.show()
+plt.imshow(outImg),plt.show()

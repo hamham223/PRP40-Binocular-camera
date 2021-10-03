@@ -1,0 +1,2 @@
+Left Mean color    Right Mean color    Position
+(66, 125, 66)  (64, 123, 67)  [138, 542, 1850, 538, 76]

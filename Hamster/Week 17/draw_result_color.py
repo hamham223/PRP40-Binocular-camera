@@ -40,14 +40,17 @@ m_color=open("m_color.txt",'w')
 m_color.write("Left Mean color    Right Mean color    Position\n")
 
 draw_cirlces = np.zeros((1520, 3040, 3), np.uint8)
+count_i=0
 for i in draw_pt:
     cv2.line(final_matrix,(i[0],i[1]),(i[2],i[3]),(0,0,255),2)
     f_circle.write(str(i[0])+"  "+str(i[1])+"       "+str(i[2])+"  "+str(i[3])+"      "+str(i[4])+"      "+str(m_color_1)+"      "+str(m_color_2)+"\n")
-    m_color.write(str(m_color_1)+"  "+str(m_color_2)+"  "+str(i)+"\n")
-    cv2.circle(draw_cirlces,(i[0],i[1]),i[4],tuple(color_pt[0]),-1,8)
-    cv2.circle(draw_cirlces,(i[2],i[3]),i[4],tuple(color_pt[1]),-1,8)
-
+    m_color.write(str(color_pt[count_i][0])+"        "+str(color_pt[count_i][1])+"         "+str(i)+"\n")
+    cv2.circle(draw_cirlces,(i[0],i[1]),i[4],color_pt[count_i][0],-1,8)
+    cv2.circle(draw_cirlces,(i[2],i[3]),i[4],color_pt[count_i][1],-1,8)
+    count_i=count_i+1
 f_circle.close()
-m_color.close()
+
 cv2.imwrite("Draw_Circles.jpg",draw_cirlces)
 cv2.imwrite("FinalCircle_Match.jpg",final_matrix)
+
+m_color.close()

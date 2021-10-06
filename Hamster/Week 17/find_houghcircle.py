@@ -26,3 +26,8 @@ def Hough(str1):
 
 circles1, count1= Hough('Left3.jpg') 
 circles2, count2= Hough('Right3.jpg')
+
+
+#origin parameters
+#circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 50,
+ #                          param1=40, param2=20, minRadius=19,maxRadius=77)

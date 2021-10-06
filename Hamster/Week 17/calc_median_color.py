@@ -5,6 +5,7 @@ def calc_median_color(img,x_0,y_0,r):
     count=0;color=np.zeros((3,),dtype=int)
     for i_ in range(x_0-r,x_0+r):
         for j_ in range(y_0-r,y_0+r):
+            if (i_>=1520)|(j_>=1520): continue
             dis=math.sqrt(float((i_-x_0)**2+(j_-y_0)**2))
             if dis<=r:
                 count=count+1

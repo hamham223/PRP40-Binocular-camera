@@ -10,7 +10,7 @@ def dis(x,y,cx,cy,r):
     cy=float(cy)
     r=float(r)
     distance=abs(math.sqrt((x-cx)**2+(y-cy)**2)-r)
-    return (distance<9)
+    return (distance<18)
 
 Line_left=line_scope.line_scope("Left3.jpg")
 Line_right=line_scope.line_scope("Right3.jpg")
@@ -33,7 +33,7 @@ for i in draw_result_color.draw_pt:
     count_j=0
     for j in Line_left:
         if dis(j[0][0],j[0][1],circle_x,circle_y,radii):
-            if Line_match_left[count_j][0]==-1 :
+            if Line_match_left[count_j][0]!=-1 :
                 Line_match_left[count_j][1]=count_i
                 continue
             Line_match_left[count_j][0]=count_i
@@ -41,7 +41,7 @@ for i in draw_result_color.draw_pt:
     count_j=0
     for j in Line_right:
         if dis(j[0][2],j[0][3],circle_x,circle_y,radii):
-            if Line_match_right[count_j][0]==-1 :
+            if Line_match_right[count_j][0]!=-1 :
                 Line_match_right[count_j][1]=count_i
                 continue
             Line_match_right[count_j][0]=count_i

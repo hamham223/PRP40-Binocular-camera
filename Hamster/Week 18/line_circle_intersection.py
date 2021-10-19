@@ -10,19 +10,13 @@ def dis(x,y,cx,cy,r):
     cy=float(cy)
     r=float(r)
     distance=abs(math.sqrt((x-cx)**2+(y-cy)**2)-r)
-    return (distance<18)
+    return (distance<9)
 
 Line_left=line_scope.line_scope("Left3.jpg")
 Line_right=line_scope.line_scope("Right3.jpg")
 
-Line_match_left=np.zeros((400,2),dtype=np.uint8)
-Line_match_right=np.zeros((400,2),dtype=np.uint8)
-for j in Line_match_right:
-    j[0]=-1
-    j[1]=-1    
-for j in Line_match_left:
-    j[0]=-1
-    j[1]=-1 
+Line_match_left=np.zeros((400,3),dtype=np.uint8)
+Line_match_right=np.zeros((400,3),dtype=np.uint8)
 
 
 count_i=0
@@ -33,18 +27,20 @@ for i in draw_result_color.draw_pt:
     count_j=0
     for j in Line_left:
         if dis(j[0][0],j[0][1],circle_x,circle_y,radii):
-            if Line_match_left[count_j][0]!=-1 :
-                Line_match_left[count_j][1]=count_i
+            if (Line_match_left[count_j][2]==2) :
                 continue
-            Line_match_left[count_j][0]=count_i
+            ccc=Line_match_left[count_j][2]
+            Line_match_left[count_j][ccc]+=1
+            Line_match_left[count_j][2]+=1
         count_j=count_j+1
     count_j=0
     for j in Line_right:
         if dis(j[0][2],j[0][3],circle_x,circle_y,radii):
-            if Line_match_right[count_j][0]!=-1 :
-                Line_match_right[count_j][1]=count_i
+            if (Line_match_right[count_j][2]==2) :
                 continue
-            Line_match_right[count_j][0]=count_i
+            ccc=Line_match_right[count_j][2]
+            Line_match_right[count_j][ccc]+=1
+            Line_match_right[count_j][2]+=1
         count_j=count_j+1
     count_i=count_i+1
 

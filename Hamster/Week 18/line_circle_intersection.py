@@ -48,6 +48,9 @@ for i in draw_result_color.draw_pt:
     count_i=count_i+1
 
 line_circle_left_img=np.zeros((1520,1520,3),np.uint8)
+line_circle_right_img=np.zeros((1520,1520,3),np.uint8)
+left_circle=np.zeros((30,30),np.bool_)
+right_circle=np.zeros((30,30),np.bool_)
 line_circle_file=open("line_circle_match.txt",'w')
 line_circle_file.write("Left Line Position                Match_circle:\n")
 for j in range(0,len(Line_left)):
@@ -55,26 +58,46 @@ for j in range(0,len(Line_left)):
         continue
     write_str=str(Line_left[j][0][0])+"   "+str(Line_left[j][0][1])+"  "+str(Line_left[j][0][2])+"  "+str(Line_left[j][0][3])
     write_str=write_str+"       "+str(Line_match_left[j][0])+"    "+str(Line_match_left[j][1])+"     "+str(Line_match_left[j][2])
-    if Line_match_left[j][2]>=1:
+    if Line_match_left[j][2]==2:
+        left_circle[Line_match_left[j][0]][Line_match_left[j][1]]=True
         circle_x=draw_result_color.draw_pt[Line_match_left[j][0]][0]
         circle_y=draw_result_color.draw_pt[Line_match_left[j][0]][1]
         radii=draw_result_color.draw_pt[Line_match_left[j][0]][4]
         cv2.circle(line_circle_left_img,(circle_x,circle_y),radii,(0,0,255),-1)
         cv2.line(line_circle_left_img,(Line_left[j][0][0],Line_left[j][0][1]),(Line_left[j][0][2],Line_left[j][0][3]),(0,255,0),2)
-        
-        circle_x=draw_result_color.draw_pt[Line_match_left[j][0]][2]
-        circle_y=draw_result_color.draw_pt[Line_match_left[j][0]][3]
-        radii=draw_result_color.draw_pt[Line_match_left[j][0]][4]
+    
+        circle_x=draw_result_color.draw_pt[Line_match_left[j][1]][0]
+        circle_y=draw_result_color.draw_pt[Line_match_left[j][1]][1]
+        radii=draw_result_color.draw_pt[Line_match_left[j][1]][4]
         cv2.circle(line_circle_left_img,(circle_x,circle_y),radii,(0,0,255),-1)
     line_circle_file.write(write_str+"\n")
 line_circle_file.write("\n\n\nRight Line Position        Match_circle:\n")
 for j in range(0,len(Line_right)):
     if Line_match_right[j][2]<=1:
         continue
-    write_str=str(Line_right[j][0][0])+"    "+str(Line_right[j][0][1])
+    write_str=str(Line_right[j][0][0])+"    "+str(Line_right[j][0][1])+"  "+str(Line_left[j][0][2])+"  "+str(Line_left[j][0][3])
     write_str=write_str+"       "+str(Line_match_right[j][0])+"    "+str(Line_match_right[j][1])+"    "+str(Line_match_right[j][2])
     line_circle_file.write(write_str+"\n")
+    if Line_match_right[j][2]==2:
+        right_circle[Line_match_right[j][0]][Line_match_right[j][1]]=True
+        circle_x=draw_result_color.draw_pt[Line_match_right[j][0]][2]-1520
+        circle_y=draw_result_color.draw_pt[Line_match_right[j][0]][3]
+        radii=draw_result_color.draw_pt[Line_match_right[j][0]][4]
+        cv2.circle(line_circle_right_img,(circle_x,circle_y),radii,(0,0,255),-1)
+        cv2.line(line_circle_right_img,(Line_right[j][0][0],Line_right[j][0][1]),(Line_right[j][0][2],Line_right[j][0][3]),(0,255,0),2)
+        
+        circle_x=draw_result_color.draw_pt[Line_match_right[j][1]][2]
+        circle_y=draw_result_color.draw_pt[Line_match_right[j][1]][3]
+        radii=draw_result_color.draw_pt[Line_match_right[j][1]][4]
+        cv2.circle(line_circle_right_img,(circle_x,circle_y),radii,(0,0,255),-1)
 line_circle_file.close()
 
 plt.imshow(line_circle_left_img),plt.show()
+
 cv2.imwrite("Line_circle_left.jpg",line_circle_left_img)
+cv2.imwrite("Line_circle_right.jpg",line_circle_right_img)
+
+for i in range(0,20):
+    for j in range(0,20):
+        if left_circle[i][j]:
+            print(i,j)

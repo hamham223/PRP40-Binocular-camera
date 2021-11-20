@@ -29,7 +29,13 @@ def line_scope(file_name):
         for x1,y1,x2,y2 in line:
             cv2.line(line_image,(x1,y1),(x2,y2),(255,0,0),2)
     cv2.imwrite("line_"+file_name,line_image)
-    return lines
+    return_line=[]
+    line_file=open("line_scope.txt",'w')
+    for i in lines:
+        return_line.append(i[0])
+        line_file.write(str(i[0])+'\n')
+    line_file.close()
+    return return_line
 
 # Draw the lines on the  image
 #lines_edges = cv2.addWeighted(img, 0.8, line_image, 1, 0)

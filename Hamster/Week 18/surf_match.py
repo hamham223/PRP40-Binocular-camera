@@ -40,8 +40,8 @@ for i in range(len(matchePoints)):
                 goodMatchePoints.append(matchePoints[i])
                 xl.append(int(xl_temp));yl.append(int(yl_temp))
                 xr.append(int(xr_temp));yr.append(int(yr_temp))
-                xhl.append(xhl_temp);yhl.append(yhl_temp)
-                xhr.append(xhr_temp);yhr.append(yhr_temp)
+                xhl.append(int(xhl_temp));yhl.append(int(yhl_temp))
+                xhr.append(int(xhr_temp));yhr.append(int(yhr_temp))
                 rl.append(rl_temp);rr.append(rr_temp)
 #sort
 for i in range(len(goodMatchePoints)-1):

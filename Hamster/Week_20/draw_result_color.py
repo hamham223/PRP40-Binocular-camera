@@ -2,8 +2,8 @@ import cv2
 import surf_match
 import calc_median_color
 import numpy as np
-
-
+import if_color
+import matplotlib.pyplot as plt
 img1_color=cv2.imread('Left_5.jpg')
 img2_color=cv2.imread('Right_5.jpg')
 i=0
@@ -21,8 +21,7 @@ while i<len(surf_match.xhl):
         continue
     m_color_1=calc_median_color.calc_median_color(img1_color,surf_match.yhl[i],surf_match.xhl[i],radius)
     m_color_2=calc_median_color.calc_median_color(img2_color,surf_match.yhr[i],surf_match.xhr[i]-1520,radius)
-    #if ((m_color_1[0]<=73)|(m_color_1[0]>=120)&(m_color_1[0]<=185))&(m_color_2[0]<=200):
-    if (((m_color_1[1]>=180) & (m_color_2[1]>=160)) & (abs(m_color_2[0]-m_color_1[0])<=50)):
+    if (if_color.ifgreen(m_color_1) | if_color.ifblue(m_color_1))& (if_color.ifgreen(m_color_2) | if_color.ifblue(m_color_2)):
         cv2.circle(img1_color,(surf_match.xhl[i],surf_match.yhl[i]),radius,(0,0,255),3)
         cv2.circle(img2_color,(surf_match.xhr[i]-1520,surf_match.yhr[i]),radius,(0,0,255),3)
         draw_pt.append([surf_match.xhl[i],surf_match.yhl[i],surf_match.xhr[i],surf_match.yhr[i],radius])
@@ -53,5 +52,5 @@ f_circle.close()
 
 cv2.imwrite("Draw_Circles.jpg",draw_cirlces)
 cv2.imwrite("FinalCircle_Match.jpg",final_matrix)
-
+plt.imshow(final_matrix),plt.show()
 m_color.close()

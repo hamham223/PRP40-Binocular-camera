@@ -24,7 +24,7 @@ files.write("x_L "+"y_L        x_R y_R      "
                 + " H_x_L H_y_L      H_x_R H_y_R    R "+"\n")
 xl=[];yl=[];xr=[];yr=[];xhl=[];yhl=[];xhr=[];yhr=[];rl=[];rr=[]
 for i in range(len(matchePoints)):
-    if matchePoints[i].distance < minMatch + (maxMatch-minMatch)/16:
+    if matchePoints[i].distance < minMatch + (maxMatch-minMatch)/16+1:
         left_id=matchePoints[i].queryIdx
         right_id=matchePoints[i].trainIdx
         xl_temp=mySURF.k1[pick_surf_circle.key1[left_id]].pt[0]

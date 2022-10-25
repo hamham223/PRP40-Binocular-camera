@@ -27,15 +27,15 @@ Kmean_Y = KMeans(n_clusters=cluster).fit(Y)
 Blank  =np.zeros((1520,3040,3),dtype=np.uint8)
 
 for i in Kmean_X.cluster_centers_:
-    cv2.circle(Blank,(int(i[0]),int(i[1])),10,(0,255,255),2)
+    cv2.circle(Blank,(int(i[0]),int(i[1])),50,(0,255,255),3)
 
 for i in Kmean_Y.cluster_centers_:
-    cv2.circle(Blank,(int(i[0])+1520,int(i[1])),10,(0,255,255),2)
+    cv2.circle(Blank,(int(i[0])+1520,int(i[1])),50,(0,255,255),3)
 
 for i in X:
-    cv2.circle(Blank,(int(i[0]),int(i[1])),3,(0,255,0),-1)
+    cv2.circle(Blank,(int(i[0]),int(i[1])),5,(0,255,0),-1)
 for i in Y:
-    cv2.circle(Blank,(int(i[0])+1520,int(i[1])),3,(0,255,0),-1)
+    cv2.circle(Blank,(int(i[0])+1520,int(i[1])),5,(0,255,0),-1)
 
 exists_ = np.zeros(cluster,dtype=bool)
 match = []

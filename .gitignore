@@ -8,3 +8,8 @@
 *.xls
 *.xlsx
 *.csv
+*.doc
+*.docx
+Report/
+40th-PRP*.md
+.DS_Store

@@ -49,10 +49,10 @@ for i in range(len(matchePoints)):
         if abs(float(yr-yl)/float(xr-xl))<0.03:
             if (if_blue.if_blue(img1_color[yl][xl])) & (if_blue.if_blue(img2_color[yr][xr-1520])):
                 goodMatchePoints.append(matchePoints[i])
-                cv2.circle(Blank_Match,(xl,yl),3,(0,255,0),-1)
-                cv2.circle(Blank_Match,(xr,yr),3,(0,255,0),-1)
+                cv2.circle(Blank_Match,(xl,yl),5,(0,255,0),-1)
+                cv2.circle(Blank_Match,(xr,yr),5,(0,255,0),-1)
         #print(img1_color[xl][yl],img2_color[xr-1520][yr])
-
+#cv2.imwrite("Blank_Match.jpg",Blank_Match)
 
 '''
 #get mean coordinates

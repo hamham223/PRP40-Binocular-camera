@@ -1,7 +1,7 @@
 def near(x0,y0,x1,y1):
     x0=int(x0);y0=int(y0);x1=int(x1);y1=int(y1)
     dis=abs(x0-x1)+abs(y0-y1)
-    _threshold=80
+    _threshold=90
     return (dis<=_threshold)
 
 def get_coord(goodMatchePoints,k1,k2):

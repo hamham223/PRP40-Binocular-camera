@@ -34,6 +34,7 @@ for i in range(len(matchePoints)):
 #print('最差匹配值是:',maxMatch)
 goodMatchePoints = []
 Blank_Match=np.zeros((1520, 3040, 3), np.uint8)
+Blank_Match=Blank_Match*255
 mean_color_file=open("mean_color.txt",'w')
 for i in range(len(matchePoints)):
     if matchePoints[i].distance < minMatch + (maxMatch-minMatch)/16+1:
@@ -47,8 +48,8 @@ for i in range(len(matchePoints)):
         if abs(float(yr-yl)/float(xr-xl))<0.05:
             if (if_orange.if_orange(img1_color[yl][xl])) & (if_orange.if_orange(img2_color[yr][xr-1520])):
                 goodMatchePoints.append(matchePoints[i])
-                cv2.circle(Blank_Match,(xl,yl),3,(0,255,0),-1)
-                cv2.circle(Blank_Match,(xr,yr),3,(0,255,0),-1)
+                cv2.circle(Blank_Match,(xl,yl),7,(0,255,0),-1)
+                cv2.circle(Blank_Match,(xr,yr),7,(0,255,0),-1)
         #print(img1_color[xl][yl],img2_color[xr-1520][yr])
 
 #get mean coordinates
@@ -60,20 +61,22 @@ for j in Left:
         count+=1;count_x+=k[0];count_y+=k[1]
     temp_x=int(count_x/count);temp_y=int(count_y/count)
     Left_mean.append([temp_x,temp_y])
-    cv2.circle(Blank_Match,(temp_x,temp_y),20,(0,0,255),2)
+    cv2.circle(Blank_Match,(temp_x,temp_y),25,(0,0,255),2)
 for j in Right:
     count_x=0;count_y=0;count=0
     for k in j:
         count+=1;count_x+=k[0];count_y+=k[1]
     temp_x=int(count_x/count);temp_y=int(count_y/count)
     Right_mean.append([temp_x,temp_y])
-    cv2.circle(Blank_Match,(temp_x+1520,temp_y),20,(0,0,255),2)
+    cv2.circle(Blank_Match,(temp_x+1520,temp_y),25,(0,0,255),3)
 for j in range(len(Left_mean)):
     print(Left_mean[j],Right_mean[j])
     xl=Left_mean[j][0];yl=Left_mean[j][1]
     xr=Right_mean[j][0];yr=Right_mean[j][1]
-    cv2.line(Blank_Match,(int(xl),int(yl)),(int(xr+1520),int(yr)),(255,0,0),2)
-
+    #cv2.line(Blank_Match,(int(xl),int(yl)),(int(xr+1520),int(yr)),(255,0,0),2)
+np.save("Left_mean",Left_mean)
+np.save("Right_mean",Right_mean)
+Line_list=[]
 print("----------------")
 #draw the cube
 for i in range(len(Left_mean)):
@@ -83,23 +86,35 @@ for i in range(len(Left_mean)):
         x2=Left_mean[j][0];y2=Left_mean[j][1]
         if exist_line.exist_line(img1_color,x1,y1,x2,y2):
             print(i,j)
-            cv2.line(Blank_Match,(int(x1),int(y1)),(int(x2),int(y2)),(0,0,255),2)
+            Line_list.append([i,j])
+            #cv2.line(Blank_Match,(int(x1),int(y1)),(int(x2),int(y2)),(0,0,255),2)
 for i in range(len(Right_mean)):
     for j in range(len(Right_mean)):
         if (i>=j): continue
         x1=Right_mean[i][0];y1=Right_mean[i][1]
         x2=Right_mean[j][0];y2=Right_mean[j][1]
-        if exist_line.exist_line(img2_color,x1,y1,x2,y2):
-            cv2.line(Blank_Match,(int(x1+1520),int(y1)),(int(x2+1520),int(y2)),(0,0,255),2)
-
-
-
+        #if exist_line.exist_line(img2_color,x1,y1,x2,y2):
+        #    cv2.line(Blank_Match,(int(x1+1520),int(y1)),(int(x2+1520),int(y2)),(0,0,255),2)
+#np.save("Line_List",Line_list)
+#cv2.line(Blank_Match,(835,735),(914,1400),(0,0,255),2)
+#cv2.line(Blank_Match,(1059,1045),(914,1400),(0,0,255),2)
+#cv2.line(Blank_Match,(2572,739),(2600,1398),(0,0,255),2)
 #imwrite
+
 outImg = None
 outImg = cv2.drawMatches(img1_color,k1,img2_color,
     k2,goodMatchePoints,outImg,
     matchColor=(0,255,0),flags=cv2.DRAW_MATCHES_FLAGS_DEFAULT)
 cv2.imwrite("Match.jpg",outImg)
+
+#for i in goodMatchePoints:
+#    left_id=i.queryIdx
+#    right_id=i.trainIdx
+#    xl=int(k1[left_id].pt[0])
+#    yl=int(k1[left_id].pt[1])
+#    xr=int(k2[right_id].pt[0]+1520)
+#    yr=int(k2[right_id].pt[1])
+
 cv2.imwrite("Blank_Match.jpg",Blank_Match)
 mean_color_file.close()
 plt.imshow(Blank_Match),plt.show()

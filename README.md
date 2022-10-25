@@ -1,6 +1,5 @@
-# prp_cv
+# PRP40-Binocular-camera
 
-complete readme ？
-completed
 
-### NO README IS NOT COMPLETED YET!
+
+See report.pdf.
